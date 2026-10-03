@@ -41,16 +41,12 @@ class Ripples:
     self.velocity += self.propagation ** 2 * acc - self.dampening * self.velocity
 
     # pin edges
-    self.velocity[0, :] = 0.0
-    self.velocity[-1, :] = 0.0
-    self.velocity[:, 0] = 0.0
-    self.velocity[:, -1] = 0.0
+    self.velocity[[0, -1], :] = 0.0
+    self.velocity[:, [0, -1]] = 0.0
+    self.position[[0, -1], :] = 0.0
+    self.position[:, [0, -1]] = 0.0
 
-    self.position[0, :] = 0.0
-    self.position[-1, :] = 0.0
-    self.position[:, 0] = 0.0
-    self.position[:, -1] = 0.0
-
+    # apply
     self.position += self.velocity
 
   def add_random(self, velocity: float):
